@@ -1,4 +1,4 @@
-from datetime import date, datetime, timedelta
+from datetime import date,datetime,timedelta
 
 
 class Habit:
@@ -24,4 +24,16 @@ class Habit:
                 count += 1
         return count
     def get_progress(self):
+        completed=self.get_completed_this_week()
+        progress=(completed/self.goal_per_week)*100
+        return progress
+    def is_goal_achieved(self):
+        completed = self.get_completed_this_week()
+        if completed >= self.goal_per_week:
+            return True
+        else:
+            return False
+
+
+
 
