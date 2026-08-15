@@ -51,6 +51,22 @@ class Habit:
                 streak+=1
                 day-=timedelta(days=1)
             return streak
+    def to_dict(self):
+        return {'name':self.name,'description':self.description,'goal_per_week':self.goal_per_week,'completed_dates':self.completed_dates}
+    def info(self):
+        completed=self.get_completed_this_week()
+        streak=self.get_streak()
+        progress=self.get_progress()
+        print(self.name)
+        if self.description:
+            print(f'описание: {self.description}')
+            print(f'выполнено:{completed} из {self.goal_per_week}')
+            print(f'процент выполнентие: {progress}%')
+            print(f'серия: {streak} ')
+            if self.is_goal_achieved():
+                print('Цель достигнута')
+            else:
+                print('Цель не достигнута')
 
 
 
