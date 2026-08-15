@@ -1,4 +1,4 @@
-from datetime import date,datetime,timedelta
+from datetime import datetime,timedelta
 
 
 class Habit:
@@ -16,11 +16,10 @@ class Habit:
             self.completed_dates.append(date)
             print('Отмечено!')
     def get_completed_this_week(self):
-        today = datetime.now()
-        seven_days_ago = today - timedelta(days=7)
+        week_ago = (datetime.now() - timedelta(days=7)).strftime('%Y-%m-%d')
         count=0
         for date in self.completed_dates:
-            if date > seven_days_ago:
+            if date > week_ago:
                 count += 1
         return count
     def get_progress(self):
@@ -33,6 +32,26 @@ class Habit:
             return True
         else:
             return False
+
+    def get_streak(self):
+        dates=[]
+        for date in self.completed_dates:
+            dates.append(date.strftime('%Y-%m-%d'))
+            dates.sort(reverse=True)
+            today = datetime.today().date
+            if today in dates:
+                first_day = today
+            elif (today-timedelta(days=1)) in dates:
+                first_day = today-timedelta(days=1)
+            else:
+                return 0
+            streak=0
+            day=first_day
+            while day in dates:
+                streak+=1
+                day-=timedelta(days=1)
+            return streak
+
 
 
 
